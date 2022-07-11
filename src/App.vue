@@ -1,18 +1,9 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    
+    <router-view/>
   </div>
 </template>
 
-<script>
-import 'bootstrap/dist/css/bootstrap-grid.min.css'
-export default {
-  name: 'App',
-  
-}
-</script>
-
-<style>
+<style lang="scss">
 
 </style>
