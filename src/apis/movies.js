@@ -6,5 +6,8 @@ export default {
   },
   getGenres(){
     return apiHelper.get("/genre/movie/list")
+  },
+  getTrending(){
+    return apiHelper.get("trending/movie/day")
   }
 }
