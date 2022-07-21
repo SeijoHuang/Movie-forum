@@ -7,8 +7,20 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'root',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'movies/:id',
+        name: 'MovieIntro',
+        component: () => import('../views/MovieIntro.vue')
+      }
+    ]
   },
   {
     path: '/genre/:genreId',
