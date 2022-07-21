@@ -2,17 +2,17 @@
   <div class="nav">
     <div class="container">
       <div class="nav__container">
-        <img @click.stop.prevent="jumpToHome" src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg" alt="" class="nav__item logo">
+        <img @click.stop="jumpToHome" src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg" alt="" class="nav__item logo">
         <div class="nav__item menu">       
           <router-link to= "/">
             <p class="menu__item home" >Home</p>
           </router-link>         
           <div class="menu__item dropdown" ref="dropdown">
-            <button @click.stop.prevent="toggleMenu" >Genres</button>          
+            <button @click.stop="toggleMenu" >Genres</button>          
             <menu v-show="menuOpen">
               <li
               v-for = "genre in genres" :key=genre.id value=genre.id
-              @click.stop.prevent="jumpPage(genre.id)"              
+              @click.stop="jumpPage(genre.id)"              
               >      
                 {{genre.name}}
               </li>
@@ -25,7 +25,7 @@
               <label for="search" @click.stop.prevent="openSearchBox"><span class="icon-search"></span></label>    
               <input type="text" placeholder="Movie" class="search-input" ref="input">
             </div>
-            <button v-show="!isSearchBoxOpen" @click.stop.prevent="openSearchBox"><span class="icon-search"></span></button>
+            <button v-show="!isSearchBoxOpen" @click.stop="openSearchBox"><span class="icon-search"></span></button>
         </div>       
       </div>     
     </div>
@@ -66,12 +66,9 @@ export default {
       this.menuOpen = !this.menuOpen
     },
     close(e) {
-      //點擊menu以外的地方將menu收起 
-      if(this.menuOpen) {
-        if (!this.$refs.dropdown.contains(e.target)) {
-          this.menuOpen = false
-        }
-      }
+      //點擊其他地方將menu和search box關閉 
+      this.menuOpen = false
+      
       if (this.isSearchBoxOpen) {
         if (!this.$refs.search.contains(e.target)) {
           this.isSearchBoxOpen = false
@@ -79,12 +76,13 @@ export default {
       }        
     },
     openSearchBox() {
-      this.isSearchBoxOpen = !this.isSearchBoxOpen    
+      this.isSearchBoxOpen = !this.isSearchBoxOpen   
       this.$refs.input.focus()  
     }
   },
   created() {
     this.getGenres()
+    //點擊關閉視窗監聽器
     window.addEventListener('click', this.close)
   },
   beforeDestroy() {
@@ -93,16 +91,28 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
   .nav{
-    padding: 1rem 5% 0 5%;
+    position:fixed;
+    top: 0; 
+    padding: 0 4%;
     width: 100%;
     height: 41px;
-    background-color: transparent;
-    z-index: 2;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+    z-index: 99;
+    @media screen and (min-width: 721px) {
+      height: 55px;
+    }
     &__container {
       display: flex;
-      align-items: top;
-    }  
+      align-items: center;
+      height: 100%;
+    }
+    
     .logo{
       width: 8%;
       min-width: 80px;
@@ -139,9 +149,11 @@ export default {
     }    
   }
   .search-bar {
-    justify-content: end;
+    justify-content: flex-end;
+    position: absolute;
+    right: 4%;
     display: flex;
-    height: 35px;
+    height: 30px;
     width: 25%;
     .search-box {
       display: flex;
@@ -155,8 +167,7 @@ export default {
       cursor: pointer;
     }
     #search {
-      display: none;    
-      
+      display: none;         
       &:checked ~ label {
         opacity: 0;
         cursor: default;
