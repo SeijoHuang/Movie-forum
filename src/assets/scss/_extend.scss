@@ -1,13 +1,30 @@
 %button {
   display: flex;
   margin-top: .6rem;
-  padding: 1rem;
   align-items: center;
   justify-content: center;
   background-color: $transparent-gray; 
   border-radius: 4px;
   width: 8rem;
-  height: 5vh;
-  font-size: 1.6vw;
+  height: 2.5rem;
+  font-size: 1.8vw;
+}
 
+%swiper-bullet {
+  background: $transparent-gray;
+  opacity: 0.5;
+}
+
+%swiper-bullet-active {
+  background: $font-gray; 
+}
+
+%slide-btn-cover {
+  content: "";
+  position: absolute;
+  width: 4%;
+  height: calc(100% - 29px);
+  background: $gray;
+  z-index: 2;
+  opacity:0.5;
 }
