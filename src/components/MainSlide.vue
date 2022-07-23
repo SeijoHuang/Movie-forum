@@ -36,6 +36,7 @@
           pagination: {
             el: ".swiper-pagination",
             clickable: true,
+            hideOnclick: true,
           },
           // autoplay: {
           //   delay: 2500,
@@ -75,14 +76,14 @@
 </script>
 <style lang="scss" scoped>
  .swiper {
-  height: 40vh;
+  height: 45vh;
   width: 100%;
   border: 1px transparent solid;
   @media screen and (min-width: 721px){
     height: 60vh;
   }
   @media screen and (min-width: 1280px){
-    height: 80vh;
+    height: 95vh;
   }
   .swiper-slide {
     display: flex;
@@ -91,13 +92,24 @@
     text-align: center;
     font-weight: bold;
     font-size: 14px;
-    background-color: transparent;
+    background-color: transparent;   
   }
   .slide__container {
     position: relative;
   }
-  ::v-deep .swiper-pagination-bullet-active{
-    background: $font-gray;   
+  // pagination原點hover效果
+  .swiper-pagination {
+    transform: scale(0)
+    
+  }
+  &:hover > .swiper-pagination{
+    transform: scale(1)
+  }
+  ::v-deep .swiper-pagination-bullet {
+    @extend %swiper-bullet;
+  }
+  ::v-deep .swiper-pagination-bullet-active {
+    @extend %swiper-bullet-active;
   } 
   .backdrop {
     width: 100%;
@@ -120,6 +132,9 @@
     }
     .more-btn {
       @extend %button;
+      width: 12vw;
+      min-width: 64px;
+      max-width: 120px;
     }     
   }
   .swiper-pagination {
