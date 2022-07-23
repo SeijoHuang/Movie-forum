@@ -4,6 +4,11 @@
     <template v-if="isOpen">
       <router-view/>
     </template>
+    <div class="billboard-container">
+      <template v-for="billboard in billboards" >
+        <BillboardSlide :key="billboard.id" :movie-data="billboard"></BillboardSlide>
+      </template>
+    </div>
     
   </div>
 </template>
@@ -11,10 +16,12 @@
 <script>
 import MainSlide from "../components/MainSlide.vue"
 import moviesApi from "../apis/movies"
+import BillboardSlide from "../components/BillboardSlide.vue"
 export default {
   name: 'Home',
   components: {
-    MainSlide
+    MainSlide,
+    BillboardSlide
   },
   data(){
     return {
@@ -22,15 +29,19 @@ export default {
       billboards: [
         {
           title:"Popular",
+          id: 1,
         },
         {
-          title:"Top Rated"
+          title:"Top Rated",
+          id: 2,
         },
         {
-          title:"Now Playing"
+          title:"Now Playing",
+          id: 3,
         },
         {
-          title:"Up Coming"
+          title:"Up Coming",
+          id: 4,
         },
       ]
     }
@@ -68,7 +79,7 @@ export default {
         })
         this.billboards = [...newBillboards]
       } catch(error) {
-        this.$toast('error', error.response.data.status_message)
+        this.$toast("error", error.response.data.status_message)
       }
     }
   },
@@ -78,3 +89,8 @@ export default {
 }
 </script>
  
+ <style lang="scss" scoped>
+  .billboard-container {
+    margin-top: -3rem;
+  }
+ </style>
