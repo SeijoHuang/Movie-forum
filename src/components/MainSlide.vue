@@ -24,6 +24,7 @@
   import moviesApi from "../apis/movies"
   import { visitPage } from "../utils/mixins"
   export default {
+    name: "MainSlide",
     components: {
       Swiper,
       SwiperSlide
@@ -97,7 +98,7 @@
   .slide__container {
     position: relative;
   }
-  // pagination原點hover效果
+  // pagination圓點hover效果
   .swiper-pagination {
     transform: scale(0)
     

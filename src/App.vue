@@ -17,7 +17,7 @@ export default {
 
 <style lang="scss">
 html {
-  background: black;
+  background: $gray;
 }
 *{
   color: $font-white;

@@ -23,8 +23,13 @@
   content: "";
   position: absolute;
   width: 4%;
-  height: calc(100% - 29px);
+  height: 90%;
   background: $gray;
   z-index: 2;
   opacity:0.5;
+}
+
+%hover-reaction {
+  border-color: $font-white;
+  color: $font-white;
 }
