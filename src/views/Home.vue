@@ -58,29 +58,44 @@ export default {
             case "Popular":
               return {
                 ...board,
-                movies: [...popular.results]
+                movies: this.dataFilter(popular.results)
               }
             case "Top Rated":
               return {
                 ...board,
-                movies: [...topRated.results]
+                movies: this.dataFilter(topRated.results)
               }
             case "Now Playing":
               return {
                 ...board,
-                movies: [...nowPlaying.results]
+                movies: this.dataFilter(nowPlaying.results)
               }
             case "Up Coming":
               return {
                 ...board,
-                movies: [...upComing.results]
+                movies: this.dataFilter(upComing.results)
               }
           }
         })
-        this.billboards = [...newBillboards]
+        this.billboards = newBillboards
       } catch(error) {
         this.$toast("error", error.response.data.status_message)
       }
+    },
+    dataFilter(data){
+      const newData = data.map( object => {
+        const { backdrop_path, id, title, poster_path, release_date, vote_average, vote_count } = object
+        return {
+          backdrop_path,
+          id,
+          title,
+          poster_path,
+          release_date,
+          vote_average,
+          vote_count
+        }
+      })
+      return newData
     }
   },
   mounted() {
@@ -91,6 +106,6 @@ export default {
  
  <style lang="scss" scoped>
   .billboard-container {
-    margin-top: -3rem;
+    margin-top: -4rem;
   }
  </style>
