@@ -28,9 +28,6 @@
             </div>
             <div class="intro__button">
               <slot name="modalBtn" >
-                <button class="modalBtn" @click.stop="openMovieModal"> 
-                  <span class="icon-arrow_lift"></span>
-                </button>
               </slot>
             </div> 
           </div>                  
@@ -45,8 +42,7 @@ export default {
   methods:{
     openMovieModal(){
       console.log("children emit")
-      this.$emit('afterClickToggleModal')
-      
+      this.$emit('afterClickToggleModal')     
     }
   }
 }
@@ -119,29 +115,14 @@ export default {
       width: 3em;
       text-align: center;
     }
-    &__button {
-      .icon-arrow_lift {
-        color: $font-gray;
-        &::before {
-          display: block;
-        }
-      }
-      .modalBtn {
-        transform: rotate(270deg);
-        background: $pop-up-card;
-        border: 2px solid ;
-        border-color: $font-gray;
-        width: 3em;
-        height: 3em;
-        border-radius: 50%;
-        &:hover {
-          @extend %hover-reaction;
-        }
-        &:hover > .icon-arrow_lift {
-          @extend %hover-reaction;
-        }
-      }
-    }
+    // &__button {
+    //   .icon-arrow_lift {
+    //     @extend %modal-icon;
+    //   }
+    //   .modalBtn {
+    //     @extend %modal-btn;
+    //   }
+    // }
   }
  
 </style>

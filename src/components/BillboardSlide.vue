@@ -23,6 +23,12 @@
             </p>
           </template>
 
+          <template #modalBtn>
+            <button class="modalBtn btn" :data-id="movie.id"> 
+              <span class="icon-arrow_lift btn" :data-id="movie.id"></span>
+            </button>
+          </template>
+
           <template #score>
             <Rating :rating="movie.vote_average" :vote-count="movie.vote_count">
             </Rating>
@@ -90,6 +96,14 @@
               slidesPerView: 3,
               slidesPerGroup: 3,
             }
+          },
+          // 設定swiper on click事件，解決loop模式複製的slide無法觸發click事件的問題
+          on: {    
+            click: ( {target} )  => {
+              if ( !target.matches('.btn') ) return
+              const movieId = target.dataset.id
+              this.toggleMovieModal(movieId)
+            }     
           }
         }
       }  
@@ -97,6 +111,10 @@
     methods: {
       getYear(date){
         return date.slice(0,4)
+      },
+      toggleMovieModal(id){
+        console.log("children emit")
+        this.$emit('afterClickToggleModal', id)   
       }
     }
   }
@@ -231,6 +249,14 @@
   }
   .swiper-button-prev:hover::after, .swiper-button-next:hover::after {
     font-weight: bolder;
+  }
+
+  //icon style
+  .icon-arrow_lift {
+    @extend %icon;
+  }
+  .modalBtn {
+    @extend %modal-btn;
   }
 
 </style>
