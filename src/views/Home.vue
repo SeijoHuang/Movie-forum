@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <MainSlide />
+    <MainSlide  @afterClickToggleModal="toggleModal">
+    </MainSlide>
+    <!-- TODO: 路由處理，貼上網址開啟movieModal -->
       <!-- <router-view/> -->
     <div class="billboard-container">
       <template v-for="billboard in billboards" >
@@ -12,7 +14,10 @@
         </BillboardSlide>
       </template>
     </div>
-    
+    <template v-if="isModalOpen">
+       <MovieModal />
+    </template>
+   
   </div>
 </template>
 
@@ -20,12 +25,14 @@
 import MainSlide from "../components/MainSlide.vue"
 import moviesApi from "../apis/movies"
 import BillboardSlide from "../components/BillboardSlide.vue"
+import MovieModal from "../components/MovieModal.vue"
 import { mapState } from "vuex"
 export default {
   name: 'Home',
   components: {
     MainSlide,
-    BillboardSlide
+    BillboardSlide,
+    MovieModal
   },
   data(){
     return {
@@ -100,8 +107,8 @@ export default {
       })
       return newData
     },
-    toggleModal(){
-      console.log("parent got emit")
+    toggleModal(payload){
+      console.log("parent got emit",payload)
       this.$store.commit("toggleModal")
     }
   },

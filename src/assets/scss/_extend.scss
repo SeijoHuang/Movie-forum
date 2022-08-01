@@ -33,3 +33,30 @@
   border-color: $font-white;
   color: $font-white;
 }
+
+%icon-circle {
+  background: $pop-up-card;
+  border: 2px solid ;
+  border-color: $font-gray;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  cursor: pointer;
+}
+%modal-btn {
+  transform: rotate(270deg);
+  @extend %icon-circle;
+  &:hover {
+    @extend %hover-reaction;
+  }
+  &:hover > .icon-arrow_lift {
+    @extend %hover-reaction;
+  }
+}
+
+%icon {
+  color: $font-gray;
+  &::before {
+    display: block;
+  }
+}

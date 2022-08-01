@@ -5,8 +5,8 @@
         <img class="slide__item backdrop" :src="'http://image.tmdb.org/t/p/w1280/' + movie.backdrop_path" alt="">
         <div class="slide__item info">
           <div class="title"> {{movie.title}} </div>
-          <button class="more-btn" @click.stop="jump('MovieModal',movie.id )">
-            <span class="icon-info_outline"></span>
+          <button class="more-btn btn" :data-id="movie.id">
+            <span class="icon-info_outline btn"></span>
             more
           </button>
         </div>
@@ -43,7 +43,14 @@
           //   delay: 2500,
           //   disableOnInteraction: true
           // },
-          loop: true
+          loop: true,
+          on: {    
+            click: ( {target} )  => {
+              if ( !target.matches('.btn') ) return
+              const movieId = target.dataset.id
+              this.toggleMovieModal(movieId)
+            }     
+          }
         },
         movies:[],
       }
@@ -66,8 +73,9 @@
         }
         return movies
       },
-      openMovieModal(id){
-        this.jump('MovieIntro',id)
+      toggleMovieModal(id){
+        console.log("children emit")
+        this.$emit('afterClickToggleModal', id)   
       }
     },
     created() {
