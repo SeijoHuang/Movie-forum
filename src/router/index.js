@@ -18,7 +18,7 @@ const routes = [
       {
         path: 'movies/:id',
         name: 'MovieModal',
-        component: () => import('../views/MovieModal.vue')
+        component: () => import('../components/MovieModal.vue')
       }
     ]
   },
