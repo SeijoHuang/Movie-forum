@@ -1,9 +1,9 @@
 <template>
-  <div class="swiper-billboard-container">
+  <div class="swiper-billboard-container">  
     <div class="category"  >{{movieData.title}}</div>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
-        <MovieCard>            
+        <MovieCard v-on="$listeners">            
           <template #poster>
             <img class="movie-card__show" :src="'http://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="">
           </template>       
@@ -144,19 +144,19 @@
 
  //每一頁的第一個movie-card hidden向右移動
   .swiper-slide-active {
-    ::v-deep .movie-card__hidden {
+    ::v-deep .movie-card___hidden {
       left:0%; 
     } 
   }
   // per view 3 ，每一頁的最後一個movie-card hidden向左移動，避免被next btn遮住
   .swiper-slide-next + .swiper-slide  {
     @media screen and (min-width: 350px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left:-60%; 
       } 
     }
     @media screen and (min-width: 577px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left:-25%; 
       } 
     }   
@@ -165,13 +165,13 @@
  //per view 4
   .swiper-slide-next + .swiper-slide + .swiper-slide {
     @media screen and (min-width: 577px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left: unset;
         right: 0;
       }
     }
     @media screen and (min-width: 993px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left: -25%;
       }
     }
@@ -179,12 +179,12 @@
   // per view 5
   .swiper-slide-next + .swiper-slide + .swiper-slide + .swiper-slide {
      @media screen and (min-width: 993px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left: -60%;
       }
     }
     @media screen and (min-width: 1280px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left: -25%;
       }
     }
@@ -192,7 +192,7 @@
 // per view 6
   .swiper-slide-next + .swiper-slide + .swiper-slide + .swiper-slide + .swiper-slide {
      @media screen and (min-width: 1280px) {
-      ::v-deep .movie-card__hidden {
+      ::v-deep .movie-card___hidden {
         left: -60%;
       }
     }

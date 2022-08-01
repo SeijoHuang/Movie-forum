@@ -7,7 +7,7 @@
         </slot>
       </div>   
       <!-- show when hover  -->
-      <div class="movie-card__hidden">
+      <div class="movie-card___hidden">
         <div class="movie-card____hidden-item  backdrop">
           <slot name="backdrop">
           </slot>
@@ -27,8 +27,8 @@
               </slot>
             </div>
             <div class="intro__button">
-              <slot name="modalBtn">
-                <button class="modalBtn"> 
+              <slot name="modalBtn" >
+                <button class="modalBtn" @click.stop="openMovieModal"> 
                   <span class="icon-arrow_lift"></span>
                 </button>
               </slot>
@@ -41,7 +41,14 @@
 </template>
 <script>
 export default {
-  name: "MovieCard"
+  name: "MovieCard",
+  methods:{
+    openMovieModal(){
+      console.log("children emit")
+      this.$emit('afterClickToggleModal')
+      
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -62,7 +69,7 @@ export default {
       height: 100%;
       object-fit: cover;;
     }
-    &__hidden {
+    &___hidden {
       transform: scale(0);
       flex-flow: column;
       position: absolute;
@@ -81,7 +88,7 @@ export default {
       opacity: 0;
       transition-delay: .6s;
     }
-    &:hover > &__hidden {
+    &:hover > &___hidden {
       transform: scale(1);     
       transform-origin: (50% 50%);
       transition: transform .4s ease-in .6s;

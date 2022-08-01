@@ -1,12 +1,15 @@
 <template>
   <div class="home">
     <MainSlide />
-    <template v-if="isOpen">
-      <router-view/>
-    </template>
+      <!-- <router-view/> -->
     <div class="billboard-container">
       <template v-for="billboard in billboards" >
-        <BillboardSlide :key="billboard.id" :movie-data="billboard"></BillboardSlide>
+        <BillboardSlide
+          :key="billboard.id" 
+          :movie-data="billboard"
+          @afterClickToggleModal="toggleModal"
+        >
+        </BillboardSlide>
       </template>
     </div>
     
@@ -17,6 +20,7 @@
 import MainSlide from "../components/MainSlide.vue"
 import moviesApi from "../apis/movies"
 import BillboardSlide from "../components/BillboardSlide.vue"
+import { mapState } from "vuex"
 export default {
   name: 'Home',
   components: {
@@ -25,7 +29,6 @@ export default {
   },
   data(){
     return {
-      isOpen: true,
       billboards: [
         {
           title:"Popular",
@@ -96,9 +99,19 @@ export default {
         }
       })
       return newData
+    },
+    toggleModal(){
+      console.log("parent got emit")
+      this.$store.commit("toggleModal")
     }
   },
-  mounted() {
+  computed: {
+      ...mapState( ['isModalOpen'] )
+  },
+  mounted(){
+    console.log("mounted ok")
+  },
+  created() {
     this.getBillboards()
   }
 }
