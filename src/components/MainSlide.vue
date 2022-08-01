@@ -5,7 +5,7 @@
         <img class="slide__item backdrop" :src="'http://image.tmdb.org/t/p/w1280/' + movie.backdrop_path" alt="">
         <div class="slide__item info">
           <div class="title"> {{movie.title}} </div>
-          <button class="more-btn" @click.stop="jump('MovieIntro',movie.id )">
+          <button class="more-btn" @click.stop="jump('MovieModal',movie.id )">
             <span class="icon-info_outline"></span>
             more
           </button>
