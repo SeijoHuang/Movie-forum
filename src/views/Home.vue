@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <MainSlide  @afterClickToggleModal="toggleModal">
+    <MainSlide>
     </MainSlide>
     <!-- TODO: 路由處理，貼上網址開啟movieModal -->
       <!-- <router-view/> -->
@@ -8,8 +8,7 @@
       <template v-for="billboard in billboards" >
         <BillboardSlide
           :key="billboard.id" 
-          :movie-data="billboard"
-          @afterClickToggleModal="toggleModal"
+          :movie-data="billboard" 
         >
         </BillboardSlide>
       </template>
@@ -102,21 +101,20 @@ export default {
           poster_path,
           release_date,
           vote_average,
-          vote_count
+          vote_count: this.voterCal(vote_count)
         }
       })
       return newData
     },
-    toggleModal(payload){
-      console.log("parent got emit",payload)
-      this.$store.commit("toggleModal")
+    //電影評分人數換算
+    voterCal(num) {
+      if(num / 1000 < 1) return num
+      // 四捨五入至小數點第二位
+      return Math.round( (num / 1000) * 100)/100 + 'k '
     }
   },
   computed: {
-      ...mapState( ['isModalOpen'] )
-  },
-  mounted(){
-    console.log("mounted ok")
+      ...mapState( ["isModalOpen"] )
   },
   created() {
     this.getBillboards()

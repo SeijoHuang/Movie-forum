@@ -5,7 +5,7 @@
       <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
         <MovieCard v-on="$listeners">            
           <template #poster>
-            <img class="movie-card__show" :src="'http://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="">
+            <img class="movie-card__show toggleModal" :data-id="movie.id" :src="'http://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="">
           </template>       
           <template #backdrop>
             <img class="movie-card__item" :src="'http://image.tmdb.org/t/p/w780/' + movie.backdrop_path" alt="">
@@ -18,19 +18,25 @@
           </template>
 
           <template #release>
-            <p class="runtime">
+            <p class="release">
               {{ getYear(movie.release_date) }}
             </p>
           </template>
 
           <template #modalBtn>
-            <button class="modalBtn btn" :data-id="movie.id"> 
-              <span class="icon-arrow_lift btn" :data-id="movie.id"></span>
+            <button class="modalBtn toggleModal" :data-id="movie.id"> 
+              <span class="icon-arrow_lift toggleModal" :data-id="movie.id"></span>
             </button>
           </template>
 
           <template #score>
-            <Rating :rating="movie.vote_average" :vote-count="movie.vote_count">
+            <Rating>
+              <template #rating>
+                {{ movie.vote_average }}
+              </template>
+              <template #voteCount>
+                {{ movie.vote_count }}
+              </template>           
             </Rating>
           </template> 
         </MovieCard>
@@ -48,7 +54,8 @@
   import 'swiper/css/swiper.css'
   import MovieCard from "../components/MovieCard.vue"
   import Rating from "../components/Rating.vue"
-
+  import store from "../store"
+  import { mapState} from "vuex"
   export default {
     name: "BillboardSlide",
     props: {
@@ -100,9 +107,15 @@
           // 設定swiper on click事件，解決loop模式複製的slide無法觸發click事件的問題
           on: {    
             click: ( {target} )  => {
-              if ( !target.matches('.btn') ) return
+              if ( !target.matches('.toggleModal')) return
+              const body = document.querySelector("body")
               const movieId = target.dataset.id
               this.toggleMovieModal(movieId)
+              if( this.isModalOpen) {
+                body.style.overflow = "hidden"
+              } else {
+                body.style.overflow = "scroll"
+              }
             }     
           }
         }
@@ -112,10 +125,14 @@
       getYear(date){
         return date.slice(0,4)
       },
+      // 更改store中modal的狀態和存取電影資料
       toggleMovieModal(id){
-        console.log("children emit")
-        this.$emit('afterClickToggleModal', id)   
+        this.$store.commit("toggleModal")
+        store.dispatch("getMovieData", id)   
       }
+    },
+    computed: {
+      ...mapState( ["isModalOpen", "isLoading"])
     }
   }
 </script>
