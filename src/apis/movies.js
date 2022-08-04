@@ -21,5 +21,8 @@ export default {
   },
   getUpComing(){
     return apiHelper.get("/movie/upcoming")
+  },
+  getDetail(id){
+    return apiHelper.get(`/movie/${id}`)
   }
 }
