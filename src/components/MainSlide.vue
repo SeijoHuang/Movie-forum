@@ -23,6 +23,7 @@
   import "swiper/css/swiper.css"
   import moviesApi from "../apis/movies"
   import { visitPage } from "../utils/mixins"
+  import store from "../store"
   export default {
     name: "MainSlide",
     components: {
@@ -47,7 +48,7 @@
           on: {    
             click: ( {target} )  => {
               if ( !target.matches('.btn') ) return
-              const movieId = target.dataset.id
+              const movieId = target.dataset.id             
               this.toggleMovieModal(movieId)
             }     
           }
@@ -74,8 +75,8 @@
         return movies
       },
       toggleMovieModal(id){
-        console.log("children emit")
-        this.$emit('afterClickToggleModal', id)   
+        this.$store.commit("toggleModal")
+        store.dispatch('getMovieData', id)     
       }
     },
     created() {
