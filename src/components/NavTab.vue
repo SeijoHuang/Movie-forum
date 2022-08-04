@@ -23,7 +23,11 @@
             <input type="checkbox" name="search" id="search">
             <div class="search-box" ref="search">
               <label for="search" @click.stop.prevent="openSearchBox"><span class="icon-search"></span></label>    
-              <input type="text" placeholder="Movie" class="search-input" ref="input">
+              <input 
+                @keyup="getSearchResult"
+                v-model.trim="searchKeyword" 
+                type="text" placeholder="Movie" 
+                class="search-input" ref="input">
             </div>
             <button v-show="!isSearchBoxOpen" @click.stop="openSearchBox"><span class="icon-search"></span></button>
         </div>       
@@ -34,6 +38,7 @@
 <script>
 import moviesApi from "../apis/movies"
 import { visitPage } from "../utils/mixins"
+import  store  from "../store"
 export default {
   name: "NavTab",
   mixins:[visitPage],
@@ -41,7 +46,9 @@ export default {
     return {
       genres:[],
       menuOpen: false,
-      isSearchBoxOpen: false
+      isSearchBoxOpen: false,
+      searchKeyword:"",
+      timer:""
     }
   },
   methods: {
@@ -67,8 +74,7 @@ export default {
     },
     close(e) {
       //點擊其他地方將menu和search box關閉 
-      this.menuOpen = false
-      
+      this.menuOpen = false     
       if (this.isSearchBoxOpen) {
         if (!this.$refs.search.contains(e.target)) {
           this.isSearchBoxOpen = false
@@ -78,6 +84,26 @@ export default {
     openSearchBox() {
       this.isSearchBoxOpen = !this.isSearchBoxOpen   
       this.$refs.input.focus()  
+    },
+    getSearchResult(){
+      if(!this.searchKeyword) return  
+      this.debounce(this.search)
+    },
+    search() {
+      //移除頭尾、字中的空格
+      const keyWord = this.searchKeyword.replace(/ /g,'')
+      this.$router.push( { query: {query: keyWord} } )
+      //當搜尋欄位清空時
+      if(!this.searchKeyword) return   
+      const query = this.$route.query
+      store.dispatch("getSearchResult", query )
+    },
+    debounce(search){
+      //每次輸入時移除計時器，停止輸入後經過0.2秒再執行函式search，向api發送請求取得搜尋結果
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        search()
+      }, 2000)
     }
   },
   created() {
