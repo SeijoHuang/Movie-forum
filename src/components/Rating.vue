@@ -4,9 +4,14 @@
       <span class="icon-star-full"></span>
     </div>
     <div class="content-container">
-      <p class="score"><span class="bold">{{rating}}</span> / 10</p>
+      <p class="score">
+        <span class="bold">
+          <slot name="rating"></slot>
+        </span> / 10
+        
+        </p>
       <p class="vote-count">
-        {{voterCal}} 
+        <slot name="voteCount"></slot>
         <span class="icon-user"></span>
       </p>
     </div>
@@ -15,21 +20,6 @@
 <script>
 export default {
   name:"Rating",
-  props: {
-    rating:{
-      type: Number
-    },
-    voteCount: {
-      type: Number
-    }
-  },
-  computed: {
-    voterCal: function() {
-      if(this.voteCount / 1000 < 1) return this.voteCount
-      // 四捨五入至小數點第二位
-      return Math.round( (this.voteCount / 1000) * 100)/100 + 'k '
-    }
-  }
 }
 </script>
 <style lang="scss" scoped>
