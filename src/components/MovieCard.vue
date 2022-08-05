@@ -3,8 +3,10 @@
     <div class="movie-card">
       <!-- poster -->
       <div class="movie-card__show">
-        <slot name="poster">
-        </slot>
+        <div class="img-container">
+          <slot name="poster">
+          </slot>
+        </div>       
       </div>   
       <!-- show when hover  -->
       <div class="movie-card___hidden">
@@ -48,10 +50,18 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .movie-card__container {
+    width: 100%;
+    height: 100%
+  }
   .movie-card {
     width: 100%;
     height: 100%;
     position:relative;
+    .img-container {
+      width: 100%;
+      height: 100%;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -72,6 +82,7 @@ export default {
       position: absolute;
       top: -6%;
       left: -25%;
+      z-index: 1;
       width: 160%;
       height: 106%;
       border-radius: 5px;
