@@ -3,7 +3,7 @@
     <Modal>
       <div class="content">
         <div class="content__item-poster-container">
-          <img :src="'http://image.tmdb.org/t/p/w780/'+ movieModalContent.poster_path" alt="" class="poster">
+          <img :src="movieModalContent.poster_path" alt="" class="poster">
         </div>       
         <div class="content__item-intro">
           <p class="title">{{ movieModalContent.title }}</p>
