@@ -39,6 +39,7 @@
 import moviesApi from "../apis/movies"
 import { visitPage } from "../utils/mixins"
 import  store  from "../store"
+
 export default {
   name: "NavTab",
   mixins:[visitPage],
@@ -86,15 +87,18 @@ export default {
       this.$refs.input.focus()  
     },
     getSearchResult(){
-      if(!this.searchKeyword) return  
+      //無輸入搜尋關鍵字時回首頁
+      if (!this.searchKeyword.trim()) {
+        this.$router.push({name: "home"})
+        return
+      }
       this.debounce(this.search)
     },
     search() {
+      //TODO:清除搜尋資料後會有bug 會發送請求報錯
       //移除頭尾、字中的空格
-      const keyWord = this.searchKeyword.replace(/ /g,'')
-      this.$router.push( { query: {query: keyWord} } )
-      //當搜尋欄位清空時
-      if(!this.searchKeyword) return   
+      const keyWord = this.searchKeyword.trim()
+      this.$router.push( { name:"SearchResult", query: {query: keyWord} } )
       const query = this.$route.query
       store.dispatch("getSearchResult", query )
     },
@@ -103,7 +107,7 @@ export default {
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         search()
-      }, 2000)
+      }, 500)
     }
   },
   created() {
