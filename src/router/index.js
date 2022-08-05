@@ -6,27 +6,32 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'root',
-    redirect: '/home'
+    path: "/",
+    name: "root",
+    redirect: "/home",
   },
   {
-    path: '/home',
-    name: 'home',
+    path: "/home",
+    name: "home",
     component: Home,
     children: [
       {
-        path: 'movies/:id',
-        name: 'MovieModal',
-        component: () => import('../components/MovieModal.vue')
-      }
-    ]
+        path: "movies/:id",
+        name: "MovieModal",
+        component: () => import("../components/MovieModal.vue"),
+      },
+    ],
   },
   {
-    path: '/genre/:genreId',
-    name: 'genre',
-    component: () => import('../views/Genre.vue')
-  }
+    path: "/genre/:genreId",
+    name: "genre",
+    component: () => import("../views/Genre.vue"),
+  },
+  {
+    path: "/search",
+    name: "SearchResult",
+    component: () => import("../views/SearchResult.vue"),
+  },
 ]
 
 const router = new VueRouter({
