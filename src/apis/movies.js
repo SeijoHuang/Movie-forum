@@ -24,5 +24,10 @@ export default {
   },
   getDetail(id){
     return apiHelper.get(`/movie/${id}`)
+  },
+  search({page, query}) {
+    const searchParams = new URLSearchParams({ page, query})
+    console.log('api', searchParams)
+    return apiHelper.get(`/search/movie?${searchParams.toString()}`)
   }
 }

@@ -25,3 +25,9 @@ export const Toast = Swal.mixin({
     toast.addEventListener("mouseleave", Swal.resumeTimer)
   }
 })
+
+//img path
+export const imgPath = {
+  poster: "http://image.tmdb.org/t/p/w342/",
+  backdrop: "http://image.tmdb.org/t/p/w780/",
+}

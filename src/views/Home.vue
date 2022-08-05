@@ -13,10 +13,6 @@
         </BillboardSlide>
       </template>
     </div>
-    <template v-if="isModalOpen">
-       <MovieModal />
-    </template>
-   
   </div>
 </template>
 
@@ -24,14 +20,12 @@
 import MainSlide from "../components/MainSlide.vue"
 import moviesApi from "../apis/movies"
 import BillboardSlide from "../components/BillboardSlide.vue"
-import MovieModal from "../components/MovieModal.vue"
 import { mapState } from "vuex"
 export default {
   name: 'Home',
   components: {
     MainSlide,
     BillboardSlide,
-    MovieModal
   },
   data(){
     return {
@@ -114,7 +108,7 @@ export default {
     }
   },
   computed: {
-      ...mapState( ["isModalOpen"] )
+      ...mapState( ["isLoading"] )
   },
   created() {
     this.getBillboards()
