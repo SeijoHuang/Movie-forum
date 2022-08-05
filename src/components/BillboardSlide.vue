@@ -3,7 +3,7 @@
     <div class="category"  >{{movieData.title}}</div>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
-        <MovieCard v-on="$listeners">            
+        <MovieCard>            
           <template #poster>
             <img class="movie-card__show toggleModal" :data-id="movie.id" :src="'http://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="">
           </template>       
@@ -54,8 +54,9 @@
   import 'swiper/css/swiper.css'
   import MovieCard from "../components/MovieCard.vue"
   import Rating from "../components/Rating.vue"
-  import store from "../store"
   import { mapState} from "vuex"
+  import { modalController } from "../utils/mixins"
+
   export default {
     name: "BillboardSlide",
     props: {
@@ -64,6 +65,7 @@
         required: true
       }
     },
+    mixins:[ modalController ],
     components: {
       Swiper,
       SwiperSlide,
@@ -108,14 +110,8 @@
           on: {    
             click: ( {target} )  => {
               if ( !target.matches('.toggleModal')) return
-              const body = document.querySelector("body")
               const movieId = target.dataset.id
-              this.toggleMovieModal(movieId)
-              if( this.isModalOpen) {
-                body.style.overflow = "hidden"
-              } else {
-                body.style.overflow = "scroll"
-              }
+              this.toggleModal(movieId)            
             }     
           }
         }
@@ -124,11 +120,6 @@
     methods: {
       getYear(date){
         return date.slice(0,4)
-      },
-      // 更改store中modal的狀態和存取電影資料
-      toggleMovieModal(id){
-        this.$store.commit("toggleModal")
-        store.dispatch("getMovieData", id)   
       }
     },
     computed: {
