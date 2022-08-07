@@ -21,12 +21,19 @@ export default new Vuex.Store({
       vote_average: "",
       vote_count: "",
     },
-    searchResult:{
-      page:"",
-      results:[],
+    searchResult: {
+      page: "",
+      results: [],
       total_pages: "",
-      total_results:""
-    }
+      total_results: "",
+    },
+    page: {
+      currentPage: "",
+      totalPages: "",
+      pageArr: [],
+      showPrevMore: false,
+      showNextMore: false
+    },
   },
   getters: {},
   mutations: {
@@ -41,8 +48,8 @@ export default new Vuex.Store({
       state.movieModalContent = data
     },
     setSearchResult(state, data) {
-      const {page, results, total_pages, total_results} = data  
-      const newResults = results.map( result => {
+      const { page, results, total_pages, total_results } = data
+      const newResults = results.map((result) => {
         const isVoterOver = result.vote_count / 1000 < 1
         return {
           ...result,
@@ -52,7 +59,7 @@ export default new Vuex.Store({
           backdrop_path: result.backdrop_path
             ? imgPath.backdrop + result.backdrop_path
             : require("../assets/static/images/noBackdrop.jpeg"),
-          release_date: result.release_date.slice(0, 4),
+          release_date: result.release_date? result.release_date.slice(0, 4) : "?",
           vote_count: isVoterOver
             ? result.vote_count
             : Math.round((result.vote_count / 1000) * 100) / 100 + "k ",
@@ -63,9 +70,104 @@ export default new Vuex.Store({
         page,
         results: newResults,
         total_pages,
-        total_results
+        total_results,
       }
-    }
+    },
+    setPagination(state, { current, total }) {
+      const showPager = 10
+      const half = Math.ceil( showPager / 2 ) 
+      let { showNextMore, showPrevMore } = state.page
+
+      state.page = {
+        ...state.page,
+        currentPage: current,
+        totalPages: total,
+        showNextMore: false,
+        showPrevMore: false,
+      }
+
+      //判斷是否要折疊分頁器
+      if (current < total - half) {
+        console.log("status1")
+        showNextMore = true
+      }
+      if (current > half) {
+        console.log("status2")
+        showPrevMore = true
+      }
+      if (total > showPager) {
+        console.log("status3")
+        if (current > half) {
+          console.log("status3-1")
+          showPrevMore = true
+        }
+        if (current < total - half) {
+          console.log("status3-2")
+          showNextMore = true
+        }
+        if (current >= total - 4) {
+          showNextMore = false
+        }
+        if (current <= half ) {
+          showPrevMore = false
+        }
+      }
+      state.page = {
+        ...state.page,
+        showNextMore,
+        showPrevMore,
+      }
+      //總頁數小於10的話全部顯示
+      if (total <= showPager) {
+        console.log("case0")
+        const pageArr = []
+        for (let i = 2; i < total; i++) {
+          pageArr.push(i)
+        }
+        state.page = {
+          ...state.page,
+          showNextMore: false,
+          showPrevMore: false,
+          pageArr,
+        }
+        return
+      }
+
+      //處理顯示的頁碼 放入pageArr中
+      if (!showPrevMore && showNextMore) {
+        console.log("case1")
+        const pageArr = []
+        for (let i = 2; i <= showPager; i++) {
+          pageArr.push(i)
+        }
+        state.page = {
+          ...state.page,
+          pageArr,
+        }
+      } else if (showPrevMore && !showNextMore) {
+        console.log("case2")
+        const pageArr = []
+        const start = total - (showPager - 2)
+        for (let i = start; i < total; i++) {
+          pageArr.push(i)
+        }
+        state.page = {
+          ...state.page,
+          pageArr,
+        }
+      } else if (showNextMore && showPrevMore) {
+        console.log("case3")
+        const pageArr = []
+        const offset = Math.floor(showPager / 2) - 1
+        for (let i = current - offset; i <= current + offset; i++) {
+          pageArr.push(i)
+        }
+        state.page = {
+          ...state.page,
+          pageArr,
+        }
+      }
+    },
   },
   actions: {
     //MovieModal資料
@@ -88,7 +190,7 @@ export default new Vuex.Store({
 
         //判斷評分人數是否大於1000人
         const isVoterOver = vote_count / 1000 < 1
-
+        //存入點開movieModal的電影資料
         commit("getMovieModalContent", {
           genres,
           id,
@@ -96,9 +198,13 @@ export default new Vuex.Store({
           poster_path: poster_path
             ? imgPath.poster + poster_path
             : require("../assets/static/images/noPoster.png"),
-          release_date: release_date.slice(0, 4),
+          release_date: release_date
+            ? release_date.slice(0, 4)
+            : "no release date",
           runtime,
-          spoken_languages: spoken_languages.length? spoken_languages[0].english_name : "no information",
+          spoken_languages: spoken_languages.length
+            ? spoken_languages[0].english_name
+            : "?",
           title,
           vote_average,
           vote_count: isVoterOver
@@ -108,21 +214,26 @@ export default new Vuex.Store({
         commit("changeLoadingState")
       } catch (error) {
         console.error.response
-         Toast.fire({
-           icon: "error",
-           title: error.response.data.status_message,
-         })
+        Toast.fire({
+          icon: "error",
+          title: error.response.data.status_message,
+        })
       }
     },
     //取得搜尋電影資料
-    async getSearchResult({commit}, {page, query}) {
-      try{
+    async getSearchResult({ commit }, { page, query }) {
+      try {
         commit("changeLoadingState")
-        const { data } = await movieApi.search( {
+        const { data } = await movieApi.search({
           page,
-          query
+          query,
         })
+        const { page: current, total_pages:total } = data
+        //存入搜尋結果資料
         commit("setSearchResult", data)
+        //存入頁數相關資料、處理頁碼
+        commit("setPagination", { current, total })
+        //更改 loading狀況
         commit("changeLoadingState")
       } catch (error) {
         Toast.fire({
@@ -130,7 +241,7 @@ export default new Vuex.Store({
           title: error.response.data.status_message,
         })
       }
-    }
+    },
   },
   modules: {},
 })
