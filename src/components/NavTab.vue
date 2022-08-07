@@ -185,6 +185,7 @@ export default {
     display: flex;
     height: 30px;
     width: 25%;
+    max-width: 350px;
     .search-box {
       display: flex;
       align-items: center;
