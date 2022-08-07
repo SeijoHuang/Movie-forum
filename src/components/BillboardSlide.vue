@@ -5,10 +5,10 @@
       <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
         <MovieCard>            
           <template #poster>
-            <img class="movie-card__show toggleModal" :data-id="movie.id" :src="'http://image.tmdb.org/t/p/w342/' + movie.poster_path" alt="">
+            <img class="movie-card__show toggleModal" :data-id="movie.id" :src="movie.poster_path" alt="">
           </template>       
           <template #backdrop>
-            <img class="movie-card__item" :src="'http://image.tmdb.org/t/p/w780/' + movie.backdrop_path" alt="">
+            <img class="movie-card__item" :src="movie.backdrop_path" alt="">
           </template>
 
           <template #title>
