@@ -259,12 +259,4 @@
     font-weight: bolder;
   }
 
-  //icon style
-  .icon-arrow_lift {
-    @extend %icon;
-  }
-  .modalBtn {
-    @extend %modal-btn;
-  }
-
 </style>
