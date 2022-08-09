@@ -41,12 +41,6 @@
 <script>
 export default {
   name: "MovieCard",
-  methods:{
-    openMovieModal(){
-      console.log("children emit")
-      this.$emit('afterClickToggleModal')     
-    }
-  }
 }
 </script>
 <style lang="scss" scoped>
@@ -136,7 +130,7 @@ export default {
       .icon-arrow_lift {
         @extend %icon;
       }
-      .modalBtn {
+      .modal-btn {
         @extend %modal-btn;
       }
     }

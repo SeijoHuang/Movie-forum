@@ -26,8 +26,11 @@ export default {
     return apiHelper.get(`/movie/${id}`)
   },
   search({page, query}) {
-    const searchParams = new URLSearchParams({ page, query})
-    console.log('api', searchParams)
+    const searchParams = new URLSearchParams({ page, query })
     return apiHelper.get(`/search/movie?${searchParams.toString()}`)
+  },
+  getGenreData({page, genreId}){
+    const searchParams = new URLSearchParams({ page, with_genres: genreId })
+    return apiHelper.get(`discover/movie?${searchParams.toString()}`)
   }
 }
