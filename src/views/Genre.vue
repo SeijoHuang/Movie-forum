@@ -88,3 +88,18 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .page-title {
+    position: fixed;
+    width: 100%;
+    top: 40px;
+    padding: 1.2rem 0;
+    z-index: 2;
+    background: $gray;
+    font-size: 1.2rem;
+    @media screen and (min-width: 721px) {
+      top: 45px;
+      font-size: 1.8rem;     
+    }
+  }
+</style>

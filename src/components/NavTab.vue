@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div class="nav" ref="nav" :class="{navOnTop: navOnTop}">
     <div class="container">
       <div class="nav__container">
         <img @click.stop="jumpToHome" src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.svg" alt="" class="nav__item logo">
@@ -9,10 +9,13 @@
           </router-link>         
           <div class="menu__item dropdown" ref="dropdown">
             <button @click.stop="toggleMenu" >Genres</button>          
-            <menu v-show="menuOpen">
+            <menu  class="dropdown__list"
+              :class="{'dropdown__list-active':menuOpen}"          
+            >
               <li
-              v-for = "genre in genres" :key=genre.id value=genre.id
-              @click.stop="setGenreData(genre.id, genre.name)"              
+                class="dropdown__list__item"
+                v-for = "genre in genres" :key=genre.id value=genre.id
+                @click.stop="setGenreData(genre.id, genre.name)"              
               >      
                 {{genre.name}}
               </li>
@@ -38,7 +41,6 @@
 <script>
 import moviesApi from "../apis/movies"
 import { visitPage } from "../utils/mixins"
-// import  store  from "../store"
 
 export default {
   name: "NavTab",
@@ -49,7 +51,8 @@ export default {
       menuOpen: false,
       isSearchBoxOpen: false,
       searchKeyword:"",
-      timer:""
+      timer:"",
+      navOnTop: true
     }
   },
   methods: {
@@ -63,18 +66,26 @@ export default {
     },
     toggleMenu() {
       this.menuOpen = !this.menuOpen
+      this.isSearchBoxOpen = false
+      //當dropdown menu 打開時切換nav背景色
+      if(this.menuOpen){
+        this.navOnTop = false
+      } 
     },
-    close(e) {
+    close( {target} ) {
       //點擊其他地方將menu和search box關閉 
-      this.menuOpen = false     
+      this.menuOpen = false
       if (this.isSearchBoxOpen) {
-        if (!this.$refs.search.contains(e.target)) {
+      this.$nextTick(() => {
+          if (!this.$refs.search.contains(target)) {
           this.isSearchBoxOpen = false
         }
-      }        
+      })       
+    }        
     },
     openSearchBox() {
       this.isSearchBoxOpen = !this.isSearchBoxOpen   
+      this.menuOpen = false
       this.$refs.input.focus()  
     },
     setGenreData(genreId, name){
@@ -87,18 +98,17 @@ export default {
         }
       })
     },
-    getSearchResult(){
-      //無輸入搜尋關鍵字時回首頁
-      if (!this.searchKeyword.trim()) {
-        this.$router.push({name: "home"})
-        return
-      }
+    getSearchResult(){  
       this.debounce(this.search)
     },
     search() {
-      //TODO:清除搜尋資料後會有bug 會發送請求報錯
-      //移除頭尾、字中的空格
       const keyWord = this.searchKeyword.trim()
+       //無輸入搜尋關鍵字時回首頁
+      if (!keyWord) {
+        this.$router.push({name: "home"})
+        return
+      }
+      //移除頭尾、字中的空格
       this.$router.push( 
         { 
           name:"SearchResult", 
@@ -112,15 +122,31 @@ export default {
       this.timer = setTimeout(() => {
         search()
       }, 500)
+    },
+    handleScroll(){
+      //dropdown menu打開時不觸發
+      if(this.menuOpen) return
+
+      if(window.scrollY < 20 ) {
+        this.navOnTop = true
+      } else{
+        this.navOnTop = false
+      }
     }
   },
-  created() {
-    this.getGenres()
+  mounted(){
+    //scroll離開top 後 navTap 背景變色
+    window.addEventListener('scroll', this.handleScroll)
     //點擊關閉視窗監聽器
     window.addEventListener('click', this.close)
+   
+  },
+  created() {
+    this.getGenres()   
   },
   beforeDestroy() {
     window.removeEventListener('click', this.close)
+    window.removeEventListener('scroll', this.handleScroll)
   },
 }
 </script>
@@ -136,8 +162,12 @@ export default {
     padding: 0 4%;
     width: 100%;
     height: 41px;
-    background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+    background: $gray;
     z-index: 99;
+    &.navOnTop {
+      background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+      background: transparent;
+    }
     @media screen and (min-width: 721px) {
       height: 55px;
     }
@@ -151,6 +181,7 @@ export default {
       width: 8%;
       min-width: 80px;
       height: 100%;
+      cursor: pointer;
     }
   }
   .home {
@@ -178,8 +209,36 @@ export default {
         transform: translateY(-50%);
       }
     }
-    menu {
+    .dropdown__list {
       position: absolute;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      justify-items: center;
+      gap: 1rem;
+      width: 100%;
+      left: -50%;
+      transform: translateX(50%) scale(1, 0) ;
+      padding: 1rem;
+      background: $gray;
+      transition: transform .3s ease-out;
+      transform-origin: top;
+      //打開drop down
+      &.dropdown__list-active {
+        transform: translateX(50%) scale(1, 1) ;
+        .dropdown__list__item {
+          opacity: 1;
+          transition: opacity .2s ease-in .2s;
+        }    
+      }
+    }
+    .dropdown__list__item  {
+      opacity: 0;
+      &:hover{
+        color: $font-gray;
+      }
+    }
+    &__item {
+      text-align: center;     
     }    
   }
   .search-bar {
