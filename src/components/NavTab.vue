@@ -12,7 +12,7 @@
             <menu v-show="menuOpen">
               <li
               v-for = "genre in genres" :key=genre.id value=genre.id
-              @click.stop="jumpPage(genre.id)"              
+              @click.stop="setGenreData(genre.id, genre.name)"              
               >      
                 {{genre.name}}
               </li>
@@ -38,7 +38,7 @@
 <script>
 import moviesApi from "../apis/movies"
 import { visitPage } from "../utils/mixins"
-import  store  from "../store"
+// import  store  from "../store"
 
 export default {
   name: "NavTab",
@@ -61,15 +61,6 @@ export default {
         this.$toast('error', error.response.data.status_message)
       }
     },
-    jumpPage( id ) {
-      this.toggleMenu()
-      this.$router.push({
-        name: "genre",
-        params: {
-          genreId: id
-        }
-      })
-    },
     toggleMenu() {
       this.menuOpen = !this.menuOpen
     },
@@ -86,6 +77,16 @@ export default {
       this.isSearchBoxOpen = !this.isSearchBoxOpen   
       this.$refs.input.focus()  
     },
+    setGenreData(genreId, name){
+      this.toggleMenu()
+      this.$router.push({
+        name:"Genre", 
+        query: {
+          id: genreId,
+          name
+        }
+      })
+    },
     getSearchResult(){
       //無輸入搜尋關鍵字時回首頁
       if (!this.searchKeyword.trim()) {
@@ -98,12 +99,15 @@ export default {
       //TODO:清除搜尋資料後會有bug 會發送請求報錯
       //移除頭尾、字中的空格
       const keyWord = this.searchKeyword.trim()
-      this.$router.push( { name:"SearchResult", query: {query: keyWord} } )
-      const query = this.$route.query
-      store.dispatch("getSearchResult", query )
+      this.$router.push( 
+        { 
+          name:"SearchResult", 
+          query: {query: keyWord} 
+        } 
+      )
     },
     debounce(search){
-      //每次輸入時移除計時器，停止輸入後經過0.2秒再執行函式search，向api發送請求取得搜尋結果
+      //每次輸入時移除計時器，停止輸入後經過0.05秒再執行函式search前往搜尋頁面，向api發送請求取得搜尋結果
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         search()
@@ -185,6 +189,7 @@ export default {
     display: flex;
     height: 30px;
     width: 25%;
+    max-width: 350px;
     .search-box {
       display: flex;
       align-items: center;

@@ -23,8 +23,8 @@ const routes = [
     ],
   },
   {
-    path: "/genre/:genreId",
-    name: "genre",
+    path: "/genre",
+    name: "Genre",
     component: () => import("../views/Genre.vue"),
   },
   {

@@ -76,6 +76,10 @@ export default {
       cursor: pointer;
       object-fit: cover;
     }
+    .movie-card__show-title {
+      font-size: 1rem;
+      text-align: center;
+    }
     &___hidden {
       transform: scale(0);
       flex-flow: column;
@@ -127,14 +131,15 @@ export default {
       width: 3em;
       text-align: center;
     }
-    // &__button {
-    //   .icon-arrow_lift {
-    //     @extend %modal-icon;
-    //   }
-    //   .modalBtn {
-    //     @extend %modal-btn;
-    //   }
-    // }
+    //icon style
+    &__button {
+      .icon-arrow_lift {
+        @extend %icon;
+      }
+      .modalBtn {
+        @extend %modal-btn;
+      }
+    }
   }
  
 </style>

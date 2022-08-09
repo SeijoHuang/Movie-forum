@@ -21,6 +21,8 @@ import MainSlide from "../components/MainSlide.vue"
 import moviesApi from "../apis/movies"
 import BillboardSlide from "../components/BillboardSlide.vue"
 import { mapState } from "vuex"
+import { imgPath } from "../utils/helpers"
+
 export default {
   name: 'Home',
   components: {
@@ -89,11 +91,15 @@ export default {
       const newData = data.map( object => {
         const { backdrop_path, id, title, poster_path, release_date, vote_average, vote_count } = object
         return {
-          backdrop_path,
+          backdrop_path: backdrop_path
+            ? imgPath.poster + backdrop_path
+            : require("../assets/static/images/noBackdrop.jpeg"),
           id,
           title,
-          poster_path,
-          release_date,
+          poster_path: poster_path
+            ? imgPath.poster + poster_path
+            : require("../assets/static/images/noPoster.png"),
+          release_date: release_date? release_date.slice(0, 4) : "no release date",
           vote_average,
           vote_count: this.voterCal(vote_count)
         }
