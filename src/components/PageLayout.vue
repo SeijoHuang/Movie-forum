@@ -1,8 +1,5 @@
 <template>
   <div class="page-layout">
-    <p class="title"> 
-      <slot name="title" />
-    </p>
     <div class="container">
       <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 gx-4 gy-5">
         <slot name="movie-card" />
@@ -26,9 +23,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 //TODO:RWD hover hidden card調整
-  .page-layout {
-    padding-top: 4rem; 
-  }
   .container {
     margin: 0;
     padding: 2rem 4%;
@@ -41,10 +35,6 @@ export default {
     @media screen and (min-width: 992px){
       max-width: unset;
     }
-  }
-  .title {
-    color: $font-gray;
-    margin-left: 4%;
   }
   .col {
     margin-bottom: 1rem;
