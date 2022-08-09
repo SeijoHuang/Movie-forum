@@ -5,7 +5,7 @@
       <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
         <MovieCard>            
           <template #poster>
-            <img class="movie-card__show toggleModal" :data-id="movie.id" :src="movie.poster_path" alt="">
+            <img class="movie-card__show toggleModal modal-active" :data-id="movie.id" :src="movie.poster_path" alt="">
           </template>       
           <template #backdrop>
             <img class="movie-card__item" :src="movie.backdrop_path" alt="">
@@ -24,8 +24,8 @@
           </template>
 
           <template #modalBtn>
-            <button class="modalBtn toggleModal" :data-id="movie.id"> 
-              <span class="icon-arrow_lift toggleModal" :data-id="movie.id"></span>
+            <button class="modal-btn toggleModal modal-active" :data-id="movie.id"> 
+              <span class="icon-arrow_lift toggleModal modal-active" :data-id="movie.id"></span>
             </button>
           </template>
 

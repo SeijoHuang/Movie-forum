@@ -1,7 +1,7 @@
 <template>
   <div class="modal__container">  
     <div class="modal"> 
-      <div class="modal__content">
+      <div class="modal__content" ref="modal">
         <div class="close-btn" @click.stop="closeModal">
           <span class="icon-close"></span>
         </div>
@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { mapState} from "vuex"
+import { mapState } from "vuex"
 export default {
   name: "Modal",
   methods: {
@@ -22,12 +22,28 @@ export default {
       this.$store.commit("toggleModal")
       const body = document.querySelector("body")
       if( !this.isModalOpen) {
-        body.style.overflow = "scroll"
-      } 
+        body.style.overflowY = "scroll"
+      }
+    },
+    closeModalWhenClickOutside( {target} ){
+      if ( target.classList.contains("modal-active") ) return
+      
+      if ( this.isModalOpen ) {
+        //點擊modal以外的區塊關閉modal
+        if (!this.$refs.modal.contains(target)) {
+          this.closeModal()
+        }
+      }     
     }
   },
   computed: {
     ...mapState( ["isModalOpen", "isLoading"])
+  },
+  mounted(){
+    window.addEventListener('click', this.closeModalWhenClickOutside)
+  },
+  beforeDestroy() {
+    window.removeEventListener('click', this.close)
   }
 }
 </script>

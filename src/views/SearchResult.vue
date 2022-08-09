@@ -1,9 +1,7 @@
 <template>
   <div class="page-container">
+    <h2 class="page-title total-box">About {{searchResult.total_results}} results </h2>
     <PageLayout>
-      <template #title>
-         About {{searchResult.total_results}} results 
-      </template>
       <template #movie-card>
         <div class="col"
           v-for="movie in searchResult.results"
@@ -11,7 +9,7 @@
         >
           <MovieCard>            
             <template #poster>
-              <img class="movie-card__show" @click.stop="toggleModal(movie.id)" 
+              <img class="movie-card__show modal-active" @click.stop="toggleModal(movie.id)" 
               :src="movie.poster_path" alt="movie-poster"
             >
               <div class="movie-card__show-title ellipsis">
@@ -36,8 +34,8 @@
             </template>
 
             <template #modalBtn>
-              <button class="modalBtn" @click.stop="toggleModal(movie.id)"> 
-                <span class="icon-arrow_lift"></span>
+              <button class="modal-btn modal-active" @click.stop="toggleModal(movie.id)"> 
+                <span class="icon-arrow_lift modal-active"></span>
               </button>
             </template>
 
@@ -90,5 +88,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .page-title {
+    color: $font-gray;
+    font-size: 1.2rem;
+  }
 </style>

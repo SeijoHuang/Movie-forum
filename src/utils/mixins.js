@@ -21,9 +21,9 @@ export const modalController = {
       this.$store.commit("toggleModal")
       //modal開啟後背景固定不scroll
       if (this.isModalOpen) {
-        body.style.overflow = "hidden"
+        body.style.overflowY = "hidden"
       } else {
-        body.style.overflow = "scroll"
+        body.style.overflowY = "scroll"
       }
       // 觸發store action 存取電影資料
       store.dispatch("getMovieData", id)
