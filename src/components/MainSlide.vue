@@ -86,7 +86,7 @@
   width: 100%;
   border: 1px transparent solid;
   @media screen and (min-width: 721px){
-    height: 60vh;
+    height: 75vh;
   }
   @media screen and (min-width: 1280px){
     height: 95vh;
@@ -138,9 +138,17 @@
     }
     .more-btn {
       @extend %button;
-      width: 12vw;
-      min-width: 64px;
-      max-width: 120px;
+      width: 15vw;
+      aspect-ratio: 5 / 2;
+      font-size: .5vw;
+      @media screen and (min-width:577px) {
+        width: 10vw;
+        font-size: 1.2vw;       
+      }
+      @media screen and (min-width:993px) {
+        width: 8vw;
+        font-size: 1.5vw;      
+      }
     }     
   }
   .swiper-pagination {
