@@ -1,7 +1,7 @@
 <template>
   <div class="page-layout">
     <div class="container">
-      <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 gx-4 gy-5">
+      <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 gx-4 gy-4 gy-md-5 gy-xl-6 ">
         <slot name="movie-card" />
       </div>
     </div>

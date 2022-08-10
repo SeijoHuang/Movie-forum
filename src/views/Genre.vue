@@ -35,7 +35,7 @@
 
             <template #modalBtn>
               <button class="modal-btn modal-active" @click.stop="toggleModal(movie.id)"> 
-                <span class="icon-arrow_lift modal-active"></span>
+                <span class="icon-arrow_lift"></span>
               </button>
             </template>
 
@@ -88,3 +88,24 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  ::v-deep .container{
+    margin-top: 2rem;
+    @media screen and (min-width: 577px){
+       margin-top: 4rem;
+    }
+  }
+  .page-title {
+    position: fixed;
+    width: 100%;
+    top: 40px;
+    padding: 1.2rem 0 1.2rem 4%;
+    z-index: 2;
+    background: $gray;
+    font-size: 1.2rem;
+    @media screen and (min-width: 577px) {
+      top: 45px;
+      font-size: 1.8rem;     
+    }
+  }
+</style>

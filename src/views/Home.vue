@@ -124,6 +124,12 @@ export default {
  
  <style lang="scss" scoped>
   .billboard-container {
-    margin-top: -4rem;
+    margin-top: -1rem;
+    @media screen and (min-width: 721px){
+      margin-top: -2rem;
+    }
+    @media screen and (min-width: 1280px){
+      margin-top: -4rem;
+    }
   }
  </style>

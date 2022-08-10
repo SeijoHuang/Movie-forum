@@ -6,7 +6,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.page-title {
-  padding-top: 4rem; 
-  margin-left: 4%;
+.page-container {
+  padding-top: 41px; 
+}
+.pointer-event-none{
+  pointer-events: none;
 }

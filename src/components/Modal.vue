@@ -3,7 +3,7 @@
     <div class="modal"> 
       <div class="modal__content" ref="modal">
         <div class="close-btn" @click.stop="closeModal">
-          <span class="icon-close"></span>
+          <span class="icon-close pointer-event-none"></span>
         </div>
         <div class="modal__content-container">
           <slot> 
@@ -64,15 +64,12 @@ export default {
     position: absolute;
     margin-top: 2rem;
     left: 50%;
-    // top: 50%;
     transform: translateX(-50%);
     z-index: 100;
     opacity: 100;
     width: 100%;
-    // height: 100%;
     background: $gray;
     
-    // overflow: scroll;
     @media screen and (min-width:577px) {
       width: 95%;
       border-radius: 8px;

@@ -35,7 +35,7 @@
 
             <template #modalBtn>
               <button class="modal-btn modal-active" @click.stop="toggleModal(movie.id)"> 
-                <span class="icon-arrow_lift modal-active"></span>
+                <span class="icon-arrow_lift"></span>
               </button>
             </template>
 
@@ -91,5 +91,7 @@ export default {
   .page-title {
     color: $font-gray;
     font-size: 1.2rem;
+    margin-top: 1rem;
+    padding-left: 4%;
   }
 </style>

@@ -1,50 +1,53 @@
 <template>
   <div class="swiper-billboard-container">  
-    <div class="category"  >{{movieData.title}}</div>
-    <swiper class="swiper" :options="swiperOption">
-      <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
-        <MovieCard>            
-          <template #poster>
-            <img class="movie-card__show toggleModal modal-active" :data-id="movie.id" :src="movie.poster_path" alt="">
-          </template>       
-          <template #backdrop>
-            <img class="movie-card__item" :src="movie.backdrop_path" alt="">
-          </template>
+    <div class="billboard__item category"  >{{movieData.title}}</div>
+    <div class="billboard__item">
+      <swiper class="swiper" :options="swiperOption">
+        <swiper-slide  v-for="movie in movieData.movies" :key="movie.id">
+          <MovieCard>            
+            <template #poster>
+              <img class="movie-card__show toggleModal modal-active" :data-id="movie.id" :src="movie.poster_path" alt="">
+            </template>       
+            <template #backdrop>
+              <img class="movie-card__item" :src="movie.backdrop_path" alt="">
+            </template>
 
-          <template #title>
-            <p class="title ellipsis">
-              {{ movie.title }}
-            </p>
-          </template>
+            <template #title>
+              <p class="title ellipsis">
+                {{ movie.title }}
+              </p>
+            </template>
 
-          <template #release>
-            <p class="release">
-              {{ getYear(movie.release_date) }}
-            </p>
-          </template>
+            <template #release>
+              <p class="release">
+                {{ getYear(movie.release_date) }}
+              </p>
+            </template>
 
-          <template #modalBtn>
-            <button class="modal-btn toggleModal modal-active" :data-id="movie.id"> 
-              <span class="icon-arrow_lift toggleModal modal-active" :data-id="movie.id"></span>
-            </button>
-          </template>
+            <template #modalBtn>
+              <button class="modal-btn toggleModal modal-active" :data-id="movie.id"> 
+                <span class="icon-arrow_lift"></span>
+              </button>
+            </template>
 
-          <template #score>
-            <Rating>
-              <template #rating>
-                {{ movie.vote_average }}
-              </template>
-              <template #voteCount>
-                {{ movie.vote_count }}
-              </template>           
-            </Rating>
-          </template> 
-        </MovieCard>
-      </swiper-slide>
-      <div class="swiper-pagination btn-hidden" slot="pagination"></div>
-      <div class="swiper-button-prev btn-hidden" slot="button-prev"></div>
-      <div class="swiper-button-next btn-hidden" slot="button-next"></div>      
-    </swiper>
+            <template #score>
+              <Rating>
+                <template #rating>
+                  {{ movie.vote_average }}
+                </template>
+                <template #voteCount>
+                  {{ movie.vote_count }}
+                </template>           
+              </Rating>
+            </template> 
+          </MovieCard>
+        </swiper-slide>
+        <div class="swiper-pagination btn-hidden" slot="pagination"></div>
+        <div class="swiper-button-prev btn-hidden" slot="button-prev"></div>
+        <div class="swiper-button-next btn-hidden" slot="button-next"></div>      
+      </swiper>
+    </div>
+   
   </div>
  
 </template>
@@ -128,17 +131,21 @@
   }
 </script>
 <style lang="scss" scoped>
+  .swiper-billboard-container{
+    display: flex;
+    flex-flow: column;
+  }
   .category {
-    position: absolute;
     z-index: 1;
     padding-left: 4%;
+    font-size: 1.8vw;
   }
   .btn-hidden {
     transform: scale(0);
   }
   .swiper {
     position:relative;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
     padding: 0 4%;
     &:hover > .btn-hidden {
       transform: scale(1);
@@ -223,6 +230,27 @@
       }
     }
   }
+
+  //hover movie card hidden 子元件樣式客製調整
+  ::v-deep .movie-card {
+    &___hidden {
+      top: -6%;
+      left: -25%;
+      z-index: 1;
+      width: 160%;
+      height: 106%;
+
+    }
+  }
+  ::v-deep .intro {
+     &__title {
+      font-size: 2vw;
+    }
+    &__release {
+      font-size: 1.5vw;
+    }
+  }
+
 
   // pagination樣式
   .swiper-pagination {
