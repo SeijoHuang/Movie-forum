@@ -125,11 +125,9 @@ export default {
     }
     &__title {
       font-size: 1.5vw;
-      // font-size: 10;
     }
     &__release {
       margin-top: .5em;
-      // font-size: 1.5em;
       font-size: 1.2vw;
       border: 1px solid $font-gray;
       border-radius: 3px;

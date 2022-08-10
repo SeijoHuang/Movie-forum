@@ -1,3 +1,4 @@
+//按鈕共用樣式
 %button {
   display: flex;
   margin-top: .6rem;
@@ -7,6 +8,7 @@
   border-radius: 4px;
 }
 
+//swiper客製共用樣式
 %swiper-bullet {
   background: $transparent-gray;
   opacity: 0.5;
@@ -26,6 +28,7 @@
   opacity:0.5;
 }
 
+//icon按鈕相關共用樣式
 %hover-reaction {
   border-color: $font-white;
   color: $font-white;
@@ -41,6 +44,7 @@
   cursor: pointer;
   z-index: 1;
 }
+
 %modal-btn {
   transform: rotate(270deg);
   @extend %icon-circle;
@@ -61,6 +65,7 @@
   }
 }
 
+//上映年份外框
 %release-date-border {
   border: 1px solid $font-gray;
   border-radius: 3px;
