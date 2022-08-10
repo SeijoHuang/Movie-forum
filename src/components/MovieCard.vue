@@ -73,15 +73,19 @@ export default {
     .movie-card__show-title {
       font-size: 1rem;
       text-align: center;
+      @media screen and (min-width: 993px) {
+        font-size: 1.2rem;
+      }
     }
     &___hidden {
       transform: scale(0);
       flex-flow: column;
       position: absolute;
-      top: -6%;
-      left: -25%;
+      top: -3%;
+      left: -26%;
       z-index: 1;
-      width: 160%;
+      width: 150%;
+      // aspect-ratio: 16 / 16;
       height: 106%;
       border-radius: 5px;
       background-color: $pop-up-card;
@@ -90,18 +94,23 @@ export default {
         border-radius: 5px 5px 0 0;
       }   
     }
-    &:hover > &__show {
-      opacity: 0;
-      transition-delay: .6s;
-    }
-    &:hover > &___hidden {
-      transform: scale(1);     
-      transform-origin: (50% 50%);
-      transition: transform .4s ease-in .6s;
+    @media screen and (min-width: 993px) {
+      &:hover > &__show {
+        opacity: 0;
+        transition-delay: .6s;
+      }
+      &:hover > &___hidden {
+        transform: scale(1);     
+        transform-origin: (50% 50%);
+        transition: transform .4s ease-in .6s;
+      }
     }
   }
 
   .intro {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
     height: 50%;
     font-size: 10px;
     grid-template-columns: 1fr 1fr;
@@ -115,11 +124,13 @@ export default {
       justify-content: space-between;
     }
     &__title {
-      font-size: 2.2em;
+      font-size: 1.5vw;
+      // font-size: 10;
     }
     &__release {
       margin-top: .5em;
-      font-size: 1.5em;
+      // font-size: 1.5em;
+      font-size: 1.2vw;
       border: 1px solid $font-gray;
       border-radius: 3px;
       width: 3em;
