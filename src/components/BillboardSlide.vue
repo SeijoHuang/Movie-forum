@@ -245,7 +245,6 @@
   ::v-deep .intro {
      &__title {
       font-size: 2vw;
-      // font-size: 10;
     }
     &__release {
       font-size: 1.5vw;

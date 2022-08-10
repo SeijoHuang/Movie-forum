@@ -178,7 +178,7 @@ export default {
     }
     
     .logo{
-      width: 8%;
+      width: 8vw;
       min-width: 80px;
       height: 100%;
       cursor: pointer;
@@ -191,13 +191,14 @@ export default {
     display: flex;
     flex: 1;
     gap: 2rem;
+    font-size: 1.5vw;
     &__item {
       cursor: pointer;
     }
     button{
       position: relative;
       padding: 0 2rem 0 0;
-      font-size: 1rem;
+      font-size: 1.5vw;
       &::after {
         content: "";
         position: absolute;
@@ -205,7 +206,7 @@ export default {
         border-width: 8px 5px 0 5px;
         border-color: $font-white transparent transparent transparent;
         top: 50%;
-        right: 20%;
+        right: 10%;
         transform: translateY(-50%);
       }
     }
@@ -214,14 +215,15 @@ export default {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       justify-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
       width: 100%;
       left: -50%;
       transform: translateX(50%) scale(1, 0) ;
-      padding: 1rem;
+      padding: 1.5rem;
       background: $gray;
       transition: transform .3s ease-out;
       transform-origin: top;
+      font-size: 1.2vw;
       //打開drop down
       &.dropdown__list-active {
         transform: translateX(50%) scale(1, 1) ;
