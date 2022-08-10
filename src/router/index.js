@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import NoFound from "../views/NoFound"
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,11 @@ const routes = [
     path: "/search",
     name: "SearchResult",
     component: () => import("../views/SearchResult.vue"),
+  },
+  {
+    path: "*",
+    name: "NoFound",
+    component: NoFound
   },
 ]
 
