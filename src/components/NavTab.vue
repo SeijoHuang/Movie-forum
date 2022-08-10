@@ -25,14 +25,22 @@
         <div class="nav__item search-bar" :class="{open:isSearchBoxOpen}">           
             <input type="checkbox" name="search" id="search">
             <div class="search-box" ref="search">
-              <label for="search" @click.stop.prevent="openSearchBox"><span class="icon-search"></span></label>    
+              <label for="search" @click.stop.prevent="openSearchBox">
+                <span class="icon-search"></span>
+              </label>    
               <input 
                 @keyup="getSearchResult"
                 v-model.trim="searchKeyword" 
                 type="text" placeholder="Movie" 
-                class="search-input" ref="input">
+                class="search-input" ref="input"
+              >
+              <div class="clean-btn" @click.stop="cleanKeyword">
+                <span class="icon-close pointer-event-none"></span>
+              </div>
             </div>
-            <button v-show="!isSearchBoxOpen" @click.stop="openSearchBox"><span class="icon-search"></span></button>
+            <button v-show="!isSearchBoxOpen" @click.stop="openSearchBox">
+              <span class="icon-search"></span>
+            </button>
         </div>       
       </div>     
     </div>
@@ -122,6 +130,13 @@ export default {
       this.timer = setTimeout(() => {
         search()
       }, 500)
+    },
+    cleanKeyword(){
+      this.searchKeyword = ""
+      this.isSearchBoxOpen = false
+      if(this.$route.name === "home") return
+      this.$router.push({name: "home"})
+     
     },
     handleScroll(){
       //dropdown menu打開時不觸發
@@ -252,11 +267,13 @@ export default {
     width: 25%;
     max-width: 350px;
     .search-box {
+      position: absolute;
       display: flex;
       align-items: center;
       gap: 8px;  
       transform: scaleX(0);
       width: 100%;
+      line-height: 30px;
       padding-left: 5px;
     }
     label {
@@ -280,6 +297,19 @@ export default {
   }
   .icon-search {
     font-size: 1.2rem;
+  }
+  .clean-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  .icon-close {
+    @extend %icon;
+    color: $font-white;
+    font-size: 1.2rem;
+    line-height: 30px;
   }
 
   @media screen and (min-width: 576px) {
