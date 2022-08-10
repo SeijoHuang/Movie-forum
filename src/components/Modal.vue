@@ -3,7 +3,7 @@
     <div class="modal"> 
       <div class="modal__content" ref="modal">
         <div class="close-btn" @click.stop="closeModal">
-          <span class="icon-close"></span>
+          <span class="icon-close pointer-event-none"></span>
         </div>
         <div class="modal__content-container">
           <slot> 

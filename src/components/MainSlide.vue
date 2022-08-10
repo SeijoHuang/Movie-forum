@@ -6,7 +6,7 @@
         <div class="slide__item info">
           <div class="title"> {{movie.title}} </div>
           <button class="more-btn btn modal-btn modal-active" :data-id="movie.id">
-            <span class="icon-info_outline btn"></span>
+            <span class="icon-info_outline btn pointer-event-none"></span>
             more
           </button>
         </div>
