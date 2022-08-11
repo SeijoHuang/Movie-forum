@@ -24,6 +24,7 @@
   import moviesApi from "../apis/movies"
   import { visitPage } from "../utils/mixins"
   import { modalController } from "../utils/mixins"
+  import { mapState } from "vuex"
   export default {
     name: "MainSlide",
     components: {
@@ -74,6 +75,9 @@
         }
         return movies
       }
+    },
+    computed: {
+      ...mapState(["isModalOpen"])
     },
     created() {
       this.getTrending()
