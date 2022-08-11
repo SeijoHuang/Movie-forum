@@ -127,7 +127,7 @@
   }
   .icon-info_outline {
     font-size: 2vw;
-    margin-right: 0.5rem;
+    // margin-right: 0.5rem;
   }
   .info {
     width: 30vw;
@@ -141,6 +141,7 @@
     }
     .more-btn {
       @extend %button;
+      gap: .2rem;
       width: 15vw;
       aspect-ratio: 5 / 2;
       font-size: 3vw;

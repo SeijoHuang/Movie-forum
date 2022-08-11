@@ -88,13 +88,16 @@ export default {
         height: 100%;
         background-image: linear-gradient(to left, $gray 2%,transparent 100%); 
       }
+      .poster {
+        border-radius: 8px 0 0 8px;  
+      }
     }  
     .poster {   
       width: 100%;
       height:100%;
       object-fit: cover;
-      border-radius: 8px 0 0 8px;  
-       
+      border-radius: 8px 8px 0 0;
+
     }    
   }
   .content__item-intro {
