@@ -4,7 +4,7 @@
       <swiper-slide class="slide__container" v-for = "movie in movies" :key = "movie.id">
         <img class="slide__item backdrop" :src="'http://image.tmdb.org/t/p/w1280/' + movie.backdrop_path" alt="">
         <div class="slide__item info">
-          <div class="title"> {{movie.title}} </div>
+          <div class="title ellipsis"> {{movie.title}} </div>
           <button class="more-btn btn modal-btn modal-active" :data-id="movie.id">
             <span class="icon-info_outline btn pointer-event-none"></span>
             more
@@ -40,10 +40,10 @@
             clickable: true,
             hideOnclick: true,
           },
-          // autoplay: {
-          //   delay: 2500,
-          //   disableOnInteraction: true
-          // },
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: true
+          },
           loop: true,
           on: {    
             click: ( {target} )  => {
@@ -130,7 +130,7 @@
     margin-right: 0.5rem;
   }
   .info {
-    width: 25vw;
+    width: 30vw;
     position: absolute;
     left: 4%;
     bottom: 30%;  
