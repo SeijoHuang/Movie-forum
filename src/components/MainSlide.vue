@@ -137,20 +137,20 @@
     z-index: 3;
     .title {
       text-align: left;
-      font-size: 2vw;
+      font-size: 1.2rem;
     }
     .more-btn {
       @extend %button;
       width: 15vw;
       aspect-ratio: 5 / 2;
-      font-size: .5vw;
+      font-size: 3vw;
       @media screen and (min-width:577px) {
         width: 10vw;
-        font-size: 1.2vw;       
+        font-size: 2vw;       
       }
       @media screen and (min-width:993px) {
         width: 8vw;
-        font-size: 1.5vw;      
+        font-size: 1.8vw;      
       }
     }     
   }

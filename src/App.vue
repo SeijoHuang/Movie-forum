@@ -27,8 +27,12 @@ export default {
 <style lang="scss">
 html {
   background: $gray;
+  @media screen and (min-width: 577px) {
+    font-size: 20px;   
+  }   
 }
 *{
   color: $font-white;
 }
+
 </style>

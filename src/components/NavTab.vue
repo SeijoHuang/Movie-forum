@@ -206,14 +206,13 @@ export default {
     display: flex;
     flex: 1;
     gap: 2rem;
-    font-size: 1.5vw;
     &__item {
       cursor: pointer;
     }
     button{
       position: relative;
       padding: 0 2rem 0 0;
-      font-size: 1.5vw;
+      font-size: 1rem;
       &::after {
         content: "";
         position: absolute;
@@ -238,7 +237,7 @@ export default {
       background: $gray;
       transition: transform .3s ease-out;
       transform-origin: top;
-      font-size: 1.2vw;
+      font-size: .8rem;
       //打開drop down
       &.dropdown__list-active {
         transform: translateX(50%) scale(1, 1) ;
@@ -263,7 +262,7 @@ export default {
     position: absolute;
     right: 4%;
     display: flex;
-    height: 30px;
+    height: 1.8rem;
     width: 25%;
     max-width: 350px;
     .search-box {
@@ -273,7 +272,7 @@ export default {
       gap: 8px;  
       transform: scaleX(0);
       width: 100%;
-      line-height: 30px;
+      line-height: 1.8rem;
       padding-left: 5px;
     }
     label {
@@ -309,7 +308,7 @@ export default {
     @extend %icon;
     color: $font-white;
     font-size: 1.2rem;
-    line-height: 30px;
+    line-height: 1.8rem;
   }
 
   @media screen and (min-width: 576px) {

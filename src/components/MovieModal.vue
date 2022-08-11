@@ -111,7 +111,7 @@ export default {
       color:$font-gray;
     }
     .title {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
     .release {
       line-height: 1.2rem;
@@ -140,8 +140,7 @@ export default {
     .overview {
       flex: 1;
       margin-top: 2rem;
-      font-size: 1.2rem;
-      line-height: 2rem;
+      line-height: 1.5rem;
     }
     .detail__container {
       flex: .5;

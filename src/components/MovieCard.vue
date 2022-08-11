@@ -71,11 +71,7 @@ export default {
       object-fit: cover;
     }
     .movie-card__show-title {
-      font-size: 1rem;
-      text-align: center;
-      @media screen and (min-width: 993px) {
-        font-size: 1.2rem;
-      }
+      text-align: center;    
     }
     &___hidden {
       transform: scale(0);
@@ -123,14 +119,14 @@ export default {
       justify-content: space-between;
     }
     &__title {
-      font-size: 1.5vw;
+      font-size: 1rem;
     }
     &__release {
       margin-top: .5em;
-      font-size: 1.2vw;
+      font-size: .8rem;
       border: 1px solid $font-gray;
       border-radius: 3px;
-      width: 3em;
+      width: 2.5rem;
       text-align: center;
     }
     //icon style

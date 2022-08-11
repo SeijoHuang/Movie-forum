@@ -138,7 +138,7 @@
   .category {
     z-index: 1;
     padding-left: 4%;
-    font-size: 1.8vw;
+    font-size: 1.2rem;
   }
   .btn-hidden {
     transform: scale(0);
@@ -242,15 +242,6 @@
 
     }
   }
-  ::v-deep .intro {
-     &__title {
-      font-size: 2vw;
-    }
-    &__release {
-      font-size: 1.5vw;
-    }
-  }
-
 
   // pagination樣式
   .swiper-pagination {
