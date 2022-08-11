@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-card__container">
+  <div class="movie-card__container">  
     <div class="movie-card">
       <!-- poster -->
       <div class="movie-card__show">
@@ -7,7 +7,7 @@
           <slot name="poster">
           </slot>
         </div>       
-      </div>   
+      </div> 
       <!-- show when hover  -->
       <div class="movie-card___hidden">
         <div class="movie-card____hidden-item  backdrop">
@@ -85,7 +85,6 @@ export default {
       left: -26%;
       z-index: 1;
       width: 150%;
-      // aspect-ratio: 16 / 16;
       height: 106%;
       border-radius: 5px;
       background-color: $pop-up-card;

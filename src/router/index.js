@@ -15,13 +15,6 @@ const routes = [
     path: "/home",
     name: "home",
     component: Home,
-    children: [
-      {
-        path: "movies/:id",
-        name: "MovieModal",
-        component: () => import("../components/MovieModal.vue"),
-      },
-    ],
   },
   {
     path: "/genre",
