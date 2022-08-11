@@ -85,6 +85,9 @@
   height: 45vh;
   width: 100%;
   border: 1px transparent solid;
+  @media screen and (min-width: 577px){
+    height: 65vh;
+  }
   @media screen and (min-width: 721px){
     height: 75vh;
   }

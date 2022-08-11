@@ -168,7 +168,7 @@ export default {
 <style lang="scss" scoped>
   .container {
     height: 100%;
-    padding: 0;
+    padding: 10px 0;
     margin: 0;
   }
   .nav{

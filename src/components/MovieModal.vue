@@ -98,6 +98,8 @@ export default {
     }    
   }
   .content__item-intro {
+    display: flex;
+    flex-flow: column;
     padding: 2.4rem 1rem 2rem 1rem;
     word-wrap: break-all;
     .subtitle {
@@ -136,10 +138,13 @@ export default {
       }
     }
     .overview {
+      flex: 1;
       margin-top: 2rem;
       font-size: 1.2rem;
+      line-height: 2rem;
     }
     .detail__container {
+      flex: .5;
       margin-top: 2rem;
       display: grid;
       grid-template-columns: 2;
