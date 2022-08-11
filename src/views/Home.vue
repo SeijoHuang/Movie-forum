@@ -1,16 +1,19 @@
 <template>
   <div class="home">
-    <MainSlide>
-    </MainSlide>
-    <!-- TODO: 路由處理，貼上網址開啟movieModal -->
-      <!-- <router-view/> -->
+    <MainSlide />
+
     <div class="billboard-container">
-      <template v-for="billboard in billboards" >
-        <BillboardSlide
-          :key="billboard.id" 
-          :movie-data="billboard" 
-        >
-        </BillboardSlide>
+      <template v-if="isLoading">
+        <Spinner />
+      </template>
+      <template v-else>
+        <template v-for="billboard in billboards" >
+          <BillboardSlide
+            :key="billboard.id" 
+            :movie-data="billboard" 
+          >
+          </BillboardSlide>
+        </template>
       </template>
     </div>
   </div>
@@ -20,6 +23,7 @@
 import MainSlide from "../components/MainSlide.vue"
 import moviesApi from "../apis/movies"
 import BillboardSlide from "../components/BillboardSlide.vue"
+import Spinner from "../components/Spinner.vue"
 import { mapState } from "vuex"
 import { imgPath } from "../utils/helpers"
 
@@ -28,6 +32,7 @@ export default {
   components: {
     MainSlide,
     BillboardSlide,
+    Spinner
   },
   data(){
     return {
@@ -54,6 +59,7 @@ export default {
   methods: {
     async getBillboards(){
       try{
+        this.$store.commit("changeLoadingState")
         const {data: popular} = await moviesApi.getPopular()
         const {data: topRated} = await moviesApi.getTopRated()
         const {data: nowPlaying} = await moviesApi.getNowPlaying()
@@ -83,6 +89,7 @@ export default {
           }
         })
         this.billboards = newBillboards
+        this.$store.commit("changeLoadingState")
       } catch(error) {
         this.$toast("error", error.response.data.status_message)
       }

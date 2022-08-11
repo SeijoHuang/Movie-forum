@@ -5,18 +5,27 @@
         <div class="close-btn" @click.stop="closeModal">
           <span class="icon-close pointer-event-none"></span>
         </div>
-        <div class="modal__content-container">
-          <slot> 
-          </slot>
-        </div>        
-      </div>
+        <template v-if="isLoading">
+          <Spinner />
+        </template>
+        <template v-else>
+          <div class="modal__content-container">
+            <slot> 
+            </slot>
+          </div> 
+        </template>      
+      </div>           
     </div>
   </div>
 </template>
 <script>
 import { mapState } from "vuex"
+import Spinner from "./Spinner.vue"
 export default {
   name: "Modal",
+  components: {
+    Spinner
+  },
   methods: {
     closeModal(){
       this.$store.commit("toggleModal")

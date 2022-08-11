@@ -56,7 +56,6 @@ export default new Vuex.Store({
     },
     changeLoadingState(state) {
       state.isLoading = !state.isLoading
-      // console.log("isLoading", state.isLoading)
     },
     getMovieModalContent(state, data) {
       state.movieModalContent = data
