@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     isModalOpen: false,
     isLoading: false,
+    isModalLoading: false,
     movieModalContent: {
       id: "",
       poster_path: "",
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     changeLoadingState(state) {
       state.isLoading = !state.isLoading
+    },
+    changeModalState(state){
+      state.isModalLoading = !state.isModalLoading
     },
     getMovieModalContent(state, data) {
       state.movieModalContent = data
@@ -207,7 +211,7 @@ export default new Vuex.Store({
     //MovieModal資料
     async getMovieData({ commit }, movieId) {
       try {
-        commit("changeLoadingState")
+        commit("changeModalState")
         const { data } = await movieApi.getDetail(movieId)
         const {
           genres,
@@ -244,10 +248,11 @@ export default new Vuex.Store({
           vote_count: isVoterOver
             ? vote_count
             : Math.round((vote_count / 1000) * 100) / 100 + "k ",
+            // 取到小數點後第二位
         })
-        commit("changeLoadingState")
+        commit("changeModalState")
       } catch (error) {
-        commit("changeLoadingState")
+        commit("changeModalState")
         Toast.fire({
           icon: "error",
           title: error.response.data.status_message,

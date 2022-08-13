@@ -5,7 +5,7 @@
         <div class="close-btn" @click.stop="closeModal">
           <span class="icon-close pointer-event-none"></span>
         </div>
-        <template v-if="isLoading">
+        <template v-if="isModalLoading">
           <Spinner />
         </template>
         <template v-else>
@@ -46,7 +46,7 @@ export default {
     }
   },
   computed: {
-    ...mapState( ["isModalOpen", "isLoading"])
+    ...mapState( ["isModalOpen", "isModalLoading"])
   },
   mounted(){
     window.addEventListener('click', this.closeModalWhenClickOutside)
