@@ -238,7 +238,7 @@ export default new Vuex.Store({
             : require("../assets/static/images/noPoster.png"),
           release_date: release_date
             ? release_date.slice(0, 4)
-            : "no release date",
+            : "?",
           runtime,
           spoken_languages: spoken_languages.length
             ? spoken_languages[0].english_name
